@@ -16,7 +16,7 @@ dotenv.config("./.env")
 const app = express();
 
 app.use(cors({
-    origin: 'http://localhost:5173', // your React app
+    origin: process.env.FRONTEND_URL || 'http://localhost:5173',
     credentials: true // 👈 this allows cookies to be sent
 }));
 
@@ -34,8 +34,16 @@ app.get("/:id",redirectFromShortUrl)
 app.use(errorHandler)
 
 app.listen(3000,()=>{
-    connectDB()
-    console.log("Server is running on http://localhost:3000");
+   connectDB()
+
+    if (process.env.NODE_ENV !== "production") {
+        app.listen(3000, () => {
+            console.log("Server is running on http://localhost:3000");
+        })
+    }
+
+    export default app
+
 })
 
 // GET - Redirection 
