@@ -33,17 +33,14 @@ app.get("/:id",redirectFromShortUrl)
 
 app.use(errorHandler)
 
-app.listen(3000,()=>{
-   connectDB()
+connectDB()
 
-    if (process.env.NODE_ENV !== "production") {
-        app.listen(3000, () => {
-            console.log("Server is running on http://localhost:3000");
-        })
-    }
+if (process.env.NODE_ENV !== "production") {
+    app.listen(3000, () => {
+        console.log("Server is running on http://localhost:3000");
+    })
+}
 
-    export default app
-
-})
+export default app
 
 // GET - Redirection 
